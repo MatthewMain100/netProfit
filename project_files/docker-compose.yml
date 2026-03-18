@@ -1,0 +1,26 @@
+version: '3.8'
+services:
+  db:
+    image: postgres:16
+    container_name: netprofit-db
+    environment:
+      POSTGRES_USER: netprofit
+      POSTGRES_PASSWORD: 1234567890
+      POSTGRES_DB: netprofit
+    ports:
+      - "5433:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+  redis:
+    image: redis:7
+    container_name: netprofit-redis
+    command: ["redis-server", "--appendonly", "yes"]
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+
+volumes:
+  db_data:
+  redis_data:
