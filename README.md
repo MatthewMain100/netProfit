@@ -81,3 +81,4 @@
 - `15_access-control.png`
 
 Полный индекс экранов доступен в [docs/screenshots/README.md](docs/screenshots/README.md).
+Для ускоренного просмотра экраны дополнительно сгруппированы по прикладным сценариям.
