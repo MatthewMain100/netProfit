@@ -56,6 +56,11 @@
 Для проекта используется схема `MAJOR.MINOR.PATCH`.
 Описание зафиксировано в [docs/repository/versioning-model.md](docs/repository/versioning-model.md).
 
+## Регламент рабочей директории
+
+Назначение каталогов и правила размещения артефактов описаны в
+[docs/repository/working-directory.md](docs/repository/working-directory.md).
+
 ## Запуск служебных сценариев
 
 Корневые сценарии `run.ps1` и `run.cmd` используются для подготовки локального контура и проверки состава рабочих каталогов. Серверные SQL- и seed-сценарии находятся в каталоге `backend/`.
