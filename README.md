@@ -55,6 +55,7 @@
 
 Для проекта используется схема `MAJOR.MINOR.PATCH`.
 Описание зафиксировано в [docs/repository/versioning-model.md](docs/repository/versioning-model.md).
+Текущий стабильный ориентир по changelog: `2.0.2`.
 
 ## Регламент рабочей директории
 
