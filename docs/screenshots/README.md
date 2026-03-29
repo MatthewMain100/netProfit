@@ -20,3 +20,9 @@
 - `13_audit.png` - аудит и журнал событий.
 - `14_users.png` - управление пользователями.
 - `15_access-control.png` - настройки разграничения доступа.
+
+## Быстрые группы просмотра
+
+- учет и операции: `04_operations.png`, `05_operations-v2.png`, `12_periods.png`;
+- аналитика и отчетность: `02_finance-center.png`, `06_report-builder.png`, `08_planning.png`;
+- контроль и сопровождение: `09_quality.png`, `13_audit.png`, `14_users.png`, `15_access-control.png`.
