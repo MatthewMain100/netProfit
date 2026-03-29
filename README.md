@@ -50,6 +50,7 @@
 
 Правила сопровождения репозитория и проверки изменений описаны в
 [docs/repository/collaboration-model.md](docs/repository/collaboration-model.md).
+Поток работы с задачами в Project описан в [docs/repository/project-board.md](docs/repository/project-board.md).
 
 ## Версионность
 
