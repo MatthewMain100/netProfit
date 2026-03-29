@@ -79,3 +79,5 @@
 - `09_quality.png`
 - `10_import.png`
 - `15_access-control.png`
+
+Полный индекс экранов доступен в [docs/screenshots/README.md](docs/screenshots/README.md).
