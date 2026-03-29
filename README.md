@@ -1,119 +1,76 @@
-﻿# Net Profit 2.0
+# Net Profit 2.0
 
-Платформа финансового учета и аналитики:
-- двойная запись (ledger),
-- event log + audit,
-- CQRS read-model,
-- Finance Center,
-- Report Builder,
-- Operations 2.0,
-- Period Close Wizard,
-- Planning/What-if,
-- Data Quality,
-- ABAC/RLS,
-- Attachments,
-- UI prefs и режимы Director/Accountant.
+Репозиторий проекта информационной системы расчета чистой прибыли для ООО "ЛогоСтекло".
 
-## Быстрый старт (локально, без Docker)
+## Состав репозитория
 
-1. Убедитесь, что запущены:
-- PostgreSQL на `localhost:5433`
-- Redis на `localhost:6379`
+- `backend/` - серверные скрипты, миграции, схема БД и демо-наполнение.
+- `frontend/` - контур клиентской части и материалы по интерфейсу.
+- `database/` - восстановительные SQL-снимки и выгрузки для демонстрационного контура.
+- `docs/` - проектная документация, модель ветвления и скриншоты интерфейса.
 
-2. Backend:
-```powershell
-cd d:\mattew\app\backend
-npm install
-npm run migrate
-npm run seed:demo
-npm run rebuild
-```
+## Рабочая директория
 
-3. Запуск всего стенда:
-```powershell
-cd d:\mattew\app
-.\run.ps1
-```
+Текущая структура отражает модульный принцип организации проекта:
 
-Откроется:
-- Frontend: `http://localhost:5173`
-- API health: `http://localhost:4000/health`
+- `backend/db/migrations/` - миграции схемы.
+- `backend/db/schema/` - базовая схема БД.
+- `backend/db/seeds/` - стартовые и тестовые данные.
+- `database/restores/` - SQL-снимки для восстановления демонстрационной среды.
+- `docs/screenshots/` - зафиксированные состояния пользовательского интерфейса.
+- `docs/repository/` - регламент по ветвлению, совместной работе и версионности.
 
-## Docker (опционально)
-```powershell
-cd d:\mattew\app
-docker compose up -d
-```
+## Модули платформы
 
-Контейнеры поднимают:
-- Postgres `5433`
-- Redis `6379`
+- Finance Center
+- Report Builder
+- Operations 2.0
+- Period Close Wizard
+- Planning / What-if
+- Data Quality
+- Import
+- Catalogs
+- Audit
+- Users
+- Access Control
 
-## Скрипты backend
+## Модель ветвления
 
-```powershell
-npm run dev            # API (watch)
-npm run worker         # очереди (imports/reports/quality/projections)
-npm run rebuild        # rebuild projections from domain_events
-npm run seed:demo      # demo events seed
-npm run migrate        # apply SQL migrations
-npm run migrate:status # migrations status
-```
+В репозитории используется следующая схема:
 
-## Ключевые API 2.0
+- `main` - стабильный контур.
+- `develop` - интеграционная ветка.
+- `feature/*` - развитие функциональности.
+- `fix/*` - исправления и выравнивание документации.
+- `hotfix/*` - срочные корректировки стабильного контура.
 
-- `GET /dashboard/finance-center`
-- `POST /reports/run`
-- `GET/POST/PATCH/DELETE /reports/templates`
-- `GET /operations/v2`
-- `GET/POST/PATCH/DELETE /operations/views`
-- `POST /periods/:id/precheck`
-- `GET /periods/:id/protocol?format=html|pdf`
-- `POST /scenarios/run`
-- `POST /scenarios/:id/apply`
-- `GET /quality/issues`
-- `POST /quality/recalculate`
-- `POST /imports/preview`
-- `POST /imports/start`
-- `GET /imports/:id/status`
-- `GET /imports/:id/report`
-- `GET/POST/PATCH/DELETE /access/policies`
-- `POST /access/test-user`
-- `POST /attachments/upload`
-- `GET /operations/:id/attachments`
-- `GET /attachments/:id/sign`
-- `GET /attachments/:id/download`
-- `DELETE /attachments/:id`
-- `GET /ui/prefs`
-- `PATCH /ui/prefs`
-- `GET /feature-flags`
-- `PATCH /feature-flags/:key` (admin)
+Подробности вынесены в [docs/repository/branching-model.md](docs/repository/branching-model.md).
 
-## Feature flags
+## Совместная работа
 
-Флаги хранятся в `feature_flags`.
-Основные ключи:
-- `finance_center`
-- `report_builder`
-- `ops_v2`
-- `period_wizard`
-- `planning`
-- `quality`
-- `import_v2`
-- `abac_rls`
-- `attachments`
-- `director_mode`
+Правила сопровождения репозитория и проверки изменений описаны в
+[docs/repository/collaboration-model.md](docs/repository/collaboration-model.md).
 
-## Демо доступ
-- `admin@local / admin123`
+## Версионность
 
-## Переменные окружения backend
-- `PORT`
-- `DATABASE_URL`
-- `REDIS_URL`
-- `REDIS_REQUIRED`
-- `JWT_SECRET`
-- `CORS_ORIGIN`
-- `ATTACHMENTS_DIR`
-- `ADMIN_EMAIL`
-- `ADMIN_PASSWORD`
+Для проекта используется схема `MAJOR.MINOR.PATCH`.
+Описание зафиксировано в [docs/repository/versioning-model.md](docs/repository/versioning-model.md).
+
+## Запуск служебных сценариев
+
+Корневые сценарии `run.ps1` и `run.cmd` используются для подготовки локального контура и проверки состава рабочих каталогов. Серверные SQL- и seed-сценарии находятся в каталоге `backend/`.
+
+## Визуальные материалы
+
+Скриншоты интерфейса собраны в каталоге `docs/screenshots/` и покрывают ключевые модули демонстрационного контура:
+
+- `00_login.png`
+- `01_home.png`
+- `02_finance-center.png`
+- `05_operations-v2.png`
+- `06_report-builder.png`
+- `07_period-wizard.png`
+- `08_planning.png`
+- `09_quality.png`
+- `10_import.png`
+- `15_access-control.png`

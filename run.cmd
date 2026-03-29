@@ -1,8 +1,26 @@
 @echo off
-set PORT=4000
-set DATABASE_URL=postgres://netprofit:1234567890@localhost:5433/netprofit
-set REDIS_URL=redis://127.0.0.1:6379
-set REDIS_REQUIRED=false
-start "backend" cmd /k "cd /d %~dp0backend && npm run dev"
-start "worker" cmd /k "cd /d %~dp0backend && npm run worker"
-start "frontend" cmd /k "cd /d %~dp0frontend && npm run dev"
+setlocal
+echo Repository layout check:
+echo backend  = %~dp0backend
+echo frontend = %~dp0frontend
+echo database = %~dp0database
+echo docs     = %~dp0docs
+if not exist "%~dp0backend" (
+  echo Missing required directory: backend
+  exit /b 1
+)
+if not exist "%~dp0frontend" (
+  echo Missing required directory: frontend
+  exit /b 1
+)
+if not exist "%~dp0database" (
+  echo Missing required directory: database
+  exit /b 1
+)
+if not exist "%~dp0docs" (
+  echo Missing required directory: docs
+  exit /b 1
+)
+echo.
+echo This repository snapshot stores the repository layout, SQL artifacts and interface materials.
+echo Use backend\migrate.js and backend\seed_demo_events.js to prepare the local database contour.
