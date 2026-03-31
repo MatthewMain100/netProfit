@@ -1,84 +1,97 @@
 # Net Profit 2.0
 
-Репозиторий проекта информационной системы расчета чистой прибыли для ООО "ЛогоСтекло".
+Платформа финансового учета и аналитики для расчета чистой прибыли предприятия.
 
 ## Состав репозитория
 
-- `backend/` - серверные скрипты, миграции, схема БД и демо-наполнение.
-- `frontend/` - контур клиентской части и материалы по интерфейсу.
-- `database/` - восстановительные SQL-снимки и выгрузки для демонстрационного контура.
-- `docs/` - проектная документация, модель ветвления и скриншоты интерфейса.
+- `backend/` - серверная часть на Node.js: API, очереди, сценарии пересчета, миграции и сиды.
+- `frontend/` - клиентская часть на React/Vite: страницы, модули аналитики и интерфейсы учетного контура.
+- `database/` - SQL-снимки для восстановления демонстрационного и live-контура.
+- `docs/` - регламенты по репозиторию, диаграммы проектирования и скриншоты интерфейса.
 
-## Рабочая директория
+## Ключевые возможности
 
-Текущая структура отражает модульный принцип организации проекта:
+- двойная запись (`ledger`);
+- журнал событий и аудит;
+- Finance Center;
+- Report Builder;
+- Operations 2.0;
+- Period Close Wizard;
+- Planning / What-if;
+- Data Quality;
+- ABAC / RLS;
+- Attachments;
+- пользовательские настройки интерфейса.
 
-- `backend/db/migrations/` - миграции схемы.
-- `backend/db/schema/` - базовая схема БД.
-- `backend/db/seeds/` - стартовые и тестовые данные.
-- `database/restores/` - SQL-снимки для восстановления демонстрационной среды.
-- `docs/screenshots/` - зафиксированные состояния пользовательского интерфейса.
-- `docs/repository/` - регламент по ветвлению, совместной работе и версионности.
+## Структура кода
 
-## Модули платформы
+- `backend/src/` - сервер, worker, модули и инфраструктурные компоненты.
+- `backend/scripts/` - миграции, сиды, пересчет проекций, smoke-проверки.
+- `backend/db/` - миграции, базовая схема и наборы данных.
+- `frontend/src/` - страницы, компоненты, API-обвязка и стили.
+- `docs/diagrams/` - диаграммы для второй главы отчета.
+- `docs/screenshots/` - скриншоты модулей системы.
 
-- Finance Center
-- Report Builder
-- Operations 2.0
-- Period Close Wizard
-- Planning / What-if
-- Data Quality
-- Import
-- Catalogs
-- Audit
-- Users
-- Access Control
+## Быстрый старт
 
-## Модель ветвления
+1. Убедиться, что доступны:
+- PostgreSQL на `localhost:5433`
+- Redis на `localhost:6379`
 
-В репозитории используется следующая схема:
+2. Подготовить backend:
+```powershell
+cd backend
+npm install
+Copy-Item .env.example .env
+npm run migrate
+npm run seed:demo
+npm run rebuild
+```
 
-- `main` - стабильный контур.
-- `develop` - интеграционная ветка.
-- `feature/*` - развитие функциональности.
-- `fix/*` - исправления и выравнивание документации.
-- `hotfix/*` - срочные корректировки стабильного контура.
+3. Подготовить frontend:
+```powershell
+cd frontend
+npm install
+```
 
-Подробности вынесены в [docs/repository/branching-model.md](docs/repository/branching-model.md).
+4. Запустить весь стенд из корня репозитория:
+```powershell
+.\run.ps1
+```
 
-## Совместная работа
+Откроются:
+- Frontend: `http://localhost:5173`
+- API health: `http://localhost:4000/health`
 
-Правила сопровождения репозитория и проверки изменений описаны в
-[docs/repository/collaboration-model.md](docs/repository/collaboration-model.md).
+## Docker
 
-## Версионность
+```powershell
+docker compose up -d
+```
 
-Для проекта используется схема `MAJOR.MINOR.PATCH`.
-Описание зафиксировано в [docs/repository/versioning-model.md](docs/repository/versioning-model.md).
-Текущий стабильный ориентир по changelog: `2.0.2`.
+Контейнеры поднимают:
+- Postgres `5433`
+- Redis `6379`
 
-## Регламент рабочей директории
+## Репозиторий и версионирование
 
-Назначение каталогов и правила размещения артефактов описаны в
-[docs/repository/working-directory.md](docs/repository/working-directory.md).
+- `main` - стабильный контур;
+- `develop` - интеграционная ветка;
+- `feature/*` - развитие функциональности;
+- `fix/*` - исправления;
+- `hotfix/*` - срочные правки стабильной версии.
 
-## Запуск служебных сценариев
+Семантическая версия: `MAJOR.MINOR.PATCH`.
+Текущий стабильный ориентир: `v2.0.2`.
 
-Корневые сценарии `run.ps1` и `run.cmd` используются для подготовки локального контура и проверки состава рабочих каталогов. Серверные SQL- и seed-сценарии находятся в каталоге `backend/`.
+Подробности:
+- [ветвление](docs/repository/branching-model.md)
+- [совместная работа](docs/repository/collaboration-model.md)
+- [рабочая директория](docs/repository/working-directory.md)
+- [модель версионности](docs/repository/versioning-model.md)
 
-## Визуальные материалы
+## Материалы для отчета
 
-Скриншоты интерфейса собраны в каталоге `docs/screenshots/` и покрывают ключевые модули демонстрационного контура:
-
-- `00_login.png`
-- `01_home.png`
-- `02_finance-center.png`
-- `05_operations-v2.png`
-- `06_report-builder.png`
-- `07_period-wizard.png`
-- `08_planning.png`
-- `09_quality.png`
-- `10_import.png`
-- `15_access-control.png`
-
-Полный индекс экранов доступен в [docs/screenshots/README.md](docs/screenshots/README.md).
+- диаграммы проектирования: [docs/diagrams/README.md](docs/diagrams/README.md)
+- скриншоты интерфейса: [docs/screenshots/README.md](docs/screenshots/README.md)
+- changelog: [CHANGELOG.md](CHANGELOG.md)
